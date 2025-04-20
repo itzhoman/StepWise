@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { navigation } from "../index";
-import Button from "./Button";
+import Button from "../assets/svg/Button";
 import MenuSvg from "../assets/svg/MenuSvg";
 import logo from "../assets/logo.png";
 import { IoIosSearch } from "react-icons/io";
@@ -89,7 +89,8 @@ const Header = () => {
                     {searchOpen && (
                         <input
                             type="text"
-                            className="absolute duration-500 rounded-full top-0 right-0 w-[200px] h-8 xs:w-[150px] xs:-mt-1
+                            className="absolute duration-500 rounded-full top-0 right-0 w-[200px] h-8 xs:w-[150px] 
+                            xs:-mt-1
                             lg:w-[200px] text-white pl-3
                             bg-third text-n-8 border border-n-6  shadow-md"
                             placeholder="Search..."

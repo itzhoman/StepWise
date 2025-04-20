@@ -42,7 +42,7 @@ const Product = () => {
         <div className="flex flex-col justify-center items-center mb-6" ref={sectionRef}>
             <div>
                 <h2 className="text-4xl font-extrabold text-gray-900">
-                    Explore Our Innovative 3D Shoe Designs - Elevate
+                    Explore Our Innovative 3D Shoe Designs
                 </h2>
             </div>
             <div className="container mt-36">
