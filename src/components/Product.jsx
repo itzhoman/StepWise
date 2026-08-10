@@ -50,11 +50,11 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
             onPointerMove={handleMove}
             onPointerLeave={() => { if (imageRef.current) imageRef.current.style.transform = "translateY(-5rem) rotateY(0) rotateX(0)"; }}
         >
-            {detail.oldPrice && <span className="absolute z-20 top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">SALE</span>}
+            {detail.oldPrice && <span className="absolute z-20 top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">تخفیف</span>}
             <button
                 className="relative h-[230px] w-full bg-transparent border-0 [perspective:900px]"
                 onClick={() => onPreview({ ...data, ...detail, colorIndex: color })}
-                aria-label={`Open 3D view for ${data.title}`}
+                aria-label={`نمای سه‌بعدی ${data.title}`}
             >
                 <img
                     ref={imageRef}
@@ -64,14 +64,14 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
                     className="max-w-[300px] w-full h-[350px] object-contain block mx-auto -translate-y-20 duration-200 drop-shadow-xl [transform-style:preserve-3d]"
                 />
                 <span className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white/80 text-[#0791b1] text-[11px] font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 duration-300 whitespace-nowrap">
-                    <FiRotateCw /> 360° View
+                    <FiRotateCw /> نمای ۳۶۰ درجه
                 </span>
             </button>
 
             <div className="p-5 text-center -mt-7 bg-white/10 rounded-b-2xl">
                 <div className="flex items-center justify-center gap-1 mb-2">
                     {[...Array(5)].map((_, i) => <FaStar key={i} className={i === 4 ? "text-yellow-500/50" : "text-yellow-500"} />)}
-                    <span className="text-xs text-gray-600 group-hover:text-white mr-1">4.8</span>
+                    <span className="text-xs text-gray-600 group-hover:text-white mr-1">۴٫۸</span>
                 </div>
                 <h3 className="text-xl font-bold">{data.title}</h3>
                 <div className="flex justify-center items-baseline gap-2 mt-2" dir="rtl">
@@ -81,7 +81,7 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
 
                 <div className="flex justify-between items-center mt-4 pt-3 border-t border-black/10">
                     <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-600 group-hover:text-white">Color</span>
+                        <span className="text-xs text-gray-600 group-hover:text-white">رنگ</span>
                         {detail.colors.map((item, index) => (
                             <button
                                 key={item.name}
@@ -93,9 +93,9 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
                             >{color === index && <FaCheck className="text-white text-[9px]" />}</button>
                         ))}
                     </div>
-                    <label className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-white">Size
+                    <label className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-white">سایز
                         <select value={size} onChange={(event) => setSize(Number(event.target.value))} className="bg-white/70 text-gray-800 rounded-lg px-2 py-1 outline-none">
-                            {[39, 40, 41, 42, 43, 44].map((item) => <option key={item}>{item}</option>)}
+                            {[39, 40, 41, 42, 43, 44].map((item) => <option key={item} value={item}>{item.toLocaleString("fa-IR")}</option>)}
                         </select>
                     </label>
                 </div>
@@ -104,7 +104,7 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
                     className={`w-full flex justify-center items-center gap-2 duration-300 text-white py-2.5 px-4 rounded-full mt-4 font-bold ${added ? "bg-green-500" : "bg-[#0791b1] hover:scale-[1.02] group-hover:bg-[#075d72]"}`}
                     onClick={addToCart}
                 >
-                    {added ? <><FaCheck /> Added to cart</> : <><FaShoppingCart /> Add to cart</>}
+                    {added ? <><FaCheck /> به سبد اضافه شد</> : <><FaShoppingCart /> افزودن به سبد</>}
                 </button>
             </div>
         </article>
@@ -127,12 +127,12 @@ function PreviewModal({ product, onClose, onAdd }) {
                     onPointerMove={(event) => { if (dragging && Math.abs(event.clientX - startX.current) > 18) { const direction = event.clientX > startX.current ? 1 : -1; setFrame((current) => (current + direction + 8) % 8); startX.current = event.clientX; } }}
                     onPointerUp={() => setDragging(false)}
                 >
-                    <span className="absolute text-[9rem] font-black text-white/20">360°</span>
+                    <span className="absolute text-[9rem] font-black text-white/20">۳۶۰°</span>
                     <div className="absolute w-[75%] h-[45%] rounded-[50%] border border-white/60 rotate-[-8deg]" />
                     <img src={product.frames[frame]} alt={`زاویه ${frame + 1} از کفش ${product.title}`} style={{ filter: product.colors[product.colorIndex].filter }} className="relative z-10 w-[92%] max-h-[430px] object-contain drop-shadow-2xl select-none" draggable="false" />
-                    <span className="absolute bottom-5 flex items-center gap-2 text-xs text-[#075d72] font-bold"><FiRotateCw /> Drag for a real 8-angle view</span>
+                    <span className="absolute bottom-5 flex items-center gap-2 text-xs text-[#075d72] font-bold"><FiRotateCw /> برای دیدن ۸ زاویه‌ی واقعی، کفش را بکشید</span>
                 </div>
-                <div className="p-8 flex flex-col justify-center text-left" dir="ltr"><span className="text-xs font-bold text-[#0791b1] uppercase">Interactive preview</span><h3 className="text-3xl font-extrabold mt-2">{product.title}</h3><p className="text-sm text-gray-600 leading-7 mt-4">Premium comfort, flexible support and a lightweight feel designed for every step.</p><strong className="text-2xl text-[#075d72] mt-5" dir="rtl">{money(product.price)} <small className="text-xs">تومان</small></strong><button onClick={() => { onAdd({ ...product, color: product.colors[product.colorIndex], size: 42 }); onClose(); }} className="bg-[#0791b1] text-white rounded-full py-3 mt-6 flex items-center justify-center gap-2 font-bold"><FaShoppingCart /> Add to cart</button></div>
+                <div className="p-8 flex flex-col justify-center text-right" dir="rtl"><span className="text-xs font-bold text-[#0791b1]">پیش‌نمایش تعاملی</span><h3 className="text-3xl font-extrabold mt-2" dir="ltr">{product.title}</h3><p className="text-sm text-gray-600 leading-7 mt-4">راحتی پریمیوم، پشتیبانی منعطف و وزن سبک؛ طراحی‌شده برای هر قدم شما.</p><strong className="text-2xl text-[#075d72] mt-5">{money(product.price)} <small className="text-xs">تومان</small></strong><button onClick={() => { onAdd({ ...product, color: product.colors[product.colorIndex], size: 42 }); onClose(); }} className="bg-[#0791b1] text-white rounded-full py-3 mt-6 flex items-center justify-center gap-2 font-bold"><FaShoppingCart /> افزودن به سبد</button></div>
             </div>
         </div>
     );
@@ -155,16 +155,16 @@ const Product = () => {
     return (
         <section id="shop" className="flex flex-col justify-center items-center mb-6 px-4" ref={sectionRef}>
             <div className="text-center max-w-2xl">
-                <span className="text-[#0791b1] font-bold uppercase tracking-[.25em] text-xs">New collection</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">Explore Our Innovative 3D Shoe Designs</h2>
-                <p className="text-gray-600 mt-3 text-sm">Choose your color and size, then move the cursor over each shoe for an interactive 3D experience.</p>
+                <span className="text-[#0791b1] font-bold tracking-[.18em] text-xs">کالکشن جدید</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-3">کفش‌های جدید را از همه‌ی زاویه‌ها ببینید</h2>
+                <p className="text-gray-600 mt-3 text-sm">رنگ و سایز را انتخاب کنید و برای تجربه‌ی نمای سه‌بعدی، نشانگر را روی کفش حرکت دهید.</p>
             </div>
             <div className="container mt-32">
                 <Swiper modules={[Navigation, Pagination]} spaceBetween={30} slidesPerView={1} navigation breakpoints={{ 640: { slidesPerView: 1 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }} className="!pb-14">
                     {ProductsData.map((data, index) => <SwiperSlide key={data.id} className="!h-auto pt-20"><ShoeCard data={data} detail={productDetails[index]} onAdd={addToCart} onPreview={setPreview} /></SwiperSlide>)}
                 </Swiper>
             </div>
-            {cart.length > 0 && <button className="fixed z-40 bottom-6 right-6 bg-[#0791b1] text-white shadow-2xl rounded-full px-5 py-3 flex items-center gap-3 font-bold"><FaShoppingCart /><span>Cart</span><b className="bg-white text-[#0791b1] w-7 h-7 rounded-full grid place-items-center">{cart.length}</b></button>}
+            {cart.length > 0 && <button className="fixed z-40 bottom-6 right-6 bg-[#0791b1] text-white shadow-2xl rounded-full px-5 py-3 flex items-center gap-3 font-bold"><FaShoppingCart /><span>سبد خرید</span><b className="bg-white text-[#0791b1] w-7 h-7 rounded-full grid place-items-center">{cart.length.toLocaleString("fa-IR")}</b></button>}
             <PreviewModal product={preview} onClose={() => setPreview(null)} onAdd={addToCart} />
         </section>
     );
