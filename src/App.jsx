@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Product from "./components/Product";
 import ProductCard from "./components/ProductCard";
+import Experience from "./components/Experience";
 import Services from "./components/Services";
 import Subscribe from "./components/Subscribe";
 
@@ -13,6 +14,7 @@ export default function App() {
       <Header />
       <Hero />
       <Product />
+      <Experience />
       <ProductCard />
       <Services />
       <Featured />

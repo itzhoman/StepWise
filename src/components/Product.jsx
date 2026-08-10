@@ -12,13 +12,14 @@ import { ProductsData } from "../index";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const frames = (model) => Array.from({ length: 8 }, (_, index) => `/shoes360/${model}/${index}.webp`);
 const productDetails = [
-    { price: 4890000, oldPrice: 5390000, colors: [{ name: "آبی", hex: "#0791b1", filter: "none" }, { name: "مشکی", hex: "#24282b", filter: "grayscale(1) brightness(.55)" }, { name: "قرمز", hex: "#c95454", filter: "hue-rotate(135deg) saturate(1.2)" }] },
-    { price: 6250000, colors: [{ name: "سرمه‌ای", hex: "#354e6b", filter: "none" }, { name: "سفید", hex: "#f5f5f2", filter: "grayscale(.6) brightness(1.25)" }] },
-    { price: 5720000, oldPrice: 6100000, colors: [{ name: "طوسی", hex: "#778087", filter: "none" }, { name: "سبز", hex: "#708761", filter: "hue-rotate(60deg)" }] },
-    { price: 4190000, colors: [{ name: "سفید", hex: "#eeeeeb", filter: "none" }, { name: "آبی", hex: "#369cc4", filter: "hue-rotate(165deg) saturate(1.1)" }] },
-    { price: 5250000, oldPrice: 5890000, colors: [{ name: "مشکی", hex: "#252525", filter: "none" }, { name: "قرمز", hex: "#b84949", filter: "hue-rotate(115deg) saturate(1.4)" }] },
-    { price: 6980000, colors: [{ name: "آبی", hex: "#49728b", filter: "none" }, { name: "کرم", hex: "#d8c9ad", filter: "sepia(.5) saturate(.6) brightness(1.1)" }] },
+    { price: 4890000, oldPrice: 5390000, frames: frames("ice"), colors: [{ name: "آبی", hex: "#0791b1", filter: "none" }, { name: "مشکی", hex: "#24282b", filter: "grayscale(1) brightness(.55)" }, { name: "قرمز", hex: "#c95454", filter: "hue-rotate(135deg) saturate(1.2)" }] },
+    { price: 6250000, frames: frames("retro"), colors: [{ name: "سرمه‌ای", hex: "#354e6b", filter: "none" }, { name: "سفید", hex: "#f5f5f2", filter: "grayscale(.6) brightness(1.25)" }] },
+    { price: 5720000, oldPrice: 6100000, frames: frames("trail"), colors: [{ name: "طوسی", hex: "#778087", filter: "none" }, { name: "سبز", hex: "#708761", filter: "hue-rotate(60deg)" }] },
+    { price: 4190000, frames: frames("ice"), colors: [{ name: "سفید", hex: "#eeeeeb", filter: "none" }, { name: "آبی", hex: "#369cc4", filter: "hue-rotate(165deg) saturate(1.1)" }] },
+    { price: 5250000, oldPrice: 5890000, frames: frames("retro"), colors: [{ name: "مشکی", hex: "#252525", filter: "none" }, { name: "قرمز", hex: "#b84949", filter: "hue-rotate(115deg) saturate(1.4)" }] },
+    { price: 6980000, frames: frames("trail"), colors: [{ name: "آبی", hex: "#49728b", filter: "none" }, { name: "کرم", hex: "#d8c9ad", filter: "sepia(.5) saturate(.6) brightness(1.1)" }] },
 ];
 
 const money = (value) => new Intl.NumberFormat("fa-IR").format(value);
@@ -57,7 +58,7 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
             >
                 <img
                     ref={imageRef}
-                    src={data.img}
+                    src={detail.frames[1]}
                     alt={data.title}
                     style={{ filter: detail.colors[color].filter }}
                     className="max-w-[300px] w-full h-[350px] object-contain block mx-auto -translate-y-20 duration-200 drop-shadow-xl [transform-style:preserve-3d]"
@@ -111,7 +112,7 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
 }
 
 function PreviewModal({ product, onClose, onAdd }) {
-    const [rotation, setRotation] = useState(-8);
+    const [frame, setFrame] = useState(1);
     const [dragging, setDragging] = useState(false);
     const startX = useRef(0);
     if (!product) return null;
@@ -123,13 +124,13 @@ function PreviewModal({ product, onClose, onAdd }) {
                 <div
                     className="relative min-h-[360px] grid place-items-center bg-gradient-to-br from-[#92c4d1] to-[#cbe2e7] cursor-grab active:cursor-grabbing [perspective:1000px] overflow-hidden"
                     onPointerDown={(event) => { setDragging(true); startX.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId); }}
-                    onPointerMove={(event) => { if (dragging) { setRotation((current) => current + (event.clientX - startX.current) * 0.5); startX.current = event.clientX; } }}
+                    onPointerMove={(event) => { if (dragging && Math.abs(event.clientX - startX.current) > 18) { const direction = event.clientX > startX.current ? 1 : -1; setFrame((current) => (current + direction + 8) % 8); startX.current = event.clientX; } }}
                     onPointerUp={() => setDragging(false)}
                 >
                     <span className="absolute text-[9rem] font-black text-white/20">360°</span>
                     <div className="absolute w-[75%] h-[45%] rounded-[50%] border border-white/60 rotate-[-8deg]" />
-                    <img src={product.img} alt="" style={{ transform: `rotateY(${rotation}deg) rotateX(6deg)`, filter: product.colors[product.colorIndex].filter }} className="relative z-10 w-[90%] max-h-[430px] object-contain drop-shadow-2xl [transform-style:preserve-3d]" />
-                    <span className="absolute bottom-5 flex items-center gap-2 text-xs text-[#075d72] font-bold"><FiRotateCw /> Drag the shoe to rotate</span>
+                    <img src={product.frames[frame]} alt={`زاویه ${frame + 1} از کفش ${product.title}`} style={{ filter: product.colors[product.colorIndex].filter }} className="relative z-10 w-[92%] max-h-[430px] object-contain drop-shadow-2xl select-none" draggable="false" />
+                    <span className="absolute bottom-5 flex items-center gap-2 text-xs text-[#075d72] font-bold"><FiRotateCw /> Drag for a real 8-angle view</span>
                 </div>
                 <div className="p-8 flex flex-col justify-center text-left" dir="ltr"><span className="text-xs font-bold text-[#0791b1] uppercase">Interactive preview</span><h3 className="text-3xl font-extrabold mt-2">{product.title}</h3><p className="text-sm text-gray-600 leading-7 mt-4">Premium comfort, flexible support and a lightweight feel designed for every step.</p><strong className="text-2xl text-[#075d72] mt-5" dir="rtl">{money(product.price)} <small className="text-xs">تومان</small></strong><button onClick={() => { onAdd({ ...product, color: product.colors[product.colorIndex], size: 42 }); onClose(); }} className="bg-[#0791b1] text-white rounded-full py-3 mt-6 flex items-center justify-center gap-2 font-bold"><FaShoppingCart /> Add to cart</button></div>
             </div>
