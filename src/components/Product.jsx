@@ -14,15 +14,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const frames = (model) => Array.from({ length: 8 }, (_, index) => `/shoes360/${model}/${index}.webp`);
 const productDetails = [
-    { price: 4890000, oldPrice: 5390000, frames: frames("ice"), colors: [{ name: "آبی", hex: "#0791b1", filter: "none" }, { name: "مشکی", hex: "#24282b", filter: "grayscale(1) brightness(.55)" }, { name: "قرمز", hex: "#c95454", filter: "hue-rotate(135deg) saturate(1.2)" }] },
-    { price: 6250000, frames: frames("retro"), colors: [{ name: "سرمه‌ای", hex: "#354e6b", filter: "none" }, { name: "سفید", hex: "#f5f5f2", filter: "grayscale(.6) brightness(1.25)" }] },
-    { price: 5720000, oldPrice: 6100000, frames: frames("trail"), colors: [{ name: "طوسی", hex: "#778087", filter: "none" }, { name: "سبز", hex: "#708761", filter: "hue-rotate(60deg)" }] },
-    { price: 4190000, frames: frames("ice"), colors: [{ name: "سفید", hex: "#eeeeeb", filter: "none" }, { name: "آبی", hex: "#369cc4", filter: "hue-rotate(165deg) saturate(1.1)" }] },
-    { price: 5250000, oldPrice: 5890000, frames: frames("retro"), colors: [{ name: "مشکی", hex: "#252525", filter: "none" }, { name: "قرمز", hex: "#b84949", filter: "hue-rotate(115deg) saturate(1.4)" }] },
-    { price: 6980000, frames: frames("trail"), colors: [{ name: "آبی", hex: "#49728b", filter: "none" }, { name: "کرم", hex: "#d8c9ad", filter: "sepia(.5) saturate(.6) brightness(1.1)" }] },
+    { price: 4890000, oldPrice: 5390000, frames: frames("ice"), colors: [{ name: "Blue", hex: "#0791b1", filter: "none" }, { name: "Black", hex: "#24282b", filter: "grayscale(1) brightness(.55)" }, { name: "Red", hex: "#c95454", filter: "hue-rotate(135deg) saturate(1.2)" }] },
+    { price: 6250000, frames: frames("retro"), colors: [{ name: "Navy", hex: "#354e6b", filter: "none" }, { name: "White", hex: "#f5f5f2", filter: "grayscale(.6) brightness(1.25)" }] },
+    { price: 5720000, oldPrice: 6100000, frames: frames("trail"), colors: [{ name: "Gray", hex: "#778087", filter: "none" }, { name: "Green", hex: "#708761", filter: "hue-rotate(60deg)" }] },
+    { price: 4190000, frames: frames("ice"), colors: [{ name: "White", hex: "#eeeeeb", filter: "none" }, { name: "Blue", hex: "#369cc4", filter: "hue-rotate(165deg) saturate(1.1)" }] },
+    { price: 5250000, oldPrice: 5890000, frames: frames("retro"), colors: [{ name: "Black", hex: "#252525", filter: "none" }, { name: "Red", hex: "#b84949", filter: "hue-rotate(115deg) saturate(1.4)" }] },
+    { price: 6980000, frames: frames("trail"), colors: [{ name: "Blue", hex: "#49728b", filter: "none" }, { name: "Cream", hex: "#d8c9ad", filter: "sepia(.5) saturate(.6) brightness(1.1)" }] },
 ];
 
-const money = (value) => new Intl.NumberFormat("fa-IR").format(value);
+const money = (value) => new Intl.NumberFormat("en-US").format(value);
 
 function ShoeCard({ data, detail, onAdd, onPreview }) {
     const [color, setColor] = useState(0);
@@ -75,7 +75,7 @@ function ShoeCard({ data, detail, onAdd, onPreview }) {
                 </div>
                 <h3 className="text-xl font-bold">{data.title}</h3>
                 <div className="flex justify-center items-baseline gap-2 mt-2" dir="rtl">
-                    <strong className="text-lg text-[#075d72] group-hover:text-white">{money(detail.price)} <small className="text-xs">تومان</small></strong>
+                    <strong className="text-lg text-[#075d72] group-hover:text-white">{money(detail.price)} <small className="text-xs">Toman</small></strong>
                     {detail.oldPrice && <del className="text-xs text-gray-500 group-hover:text-white/70">{money(detail.oldPrice)}</del>}
                 </div>
 
@@ -129,10 +129,10 @@ function PreviewModal({ product, onClose, onAdd }) {
                 >
                     <span className="absolute text-[9rem] font-black text-white/20">360°</span>
                     <div className="absolute w-[75%] h-[45%] rounded-[50%] border border-white/60 rotate-[-8deg]" />
-                    <img src={product.frames[frame]} alt={`زاویه ${frame + 1} از کفش ${product.title}`} style={{ filter: product.colors[product.colorIndex].filter }} className="relative z-10 w-[92%] max-h-[430px] object-contain drop-shadow-2xl select-none" draggable="false" />
+                    <img src={product.frames[frame]} alt={`Angle ${frame + 1} of ${product.title}`} style={{ filter: product.colors[product.colorIndex].filter }} className="relative z-10 w-[92%] max-h-[430px] object-contain drop-shadow-2xl select-none" draggable="false" />
                     <span className="absolute bottom-5 flex items-center gap-2 text-xs text-[#075d72] font-bold"><FiRotateCw /> Drag for a real 8-angle view</span>
                 </div>
-                <div className="p-8 flex flex-col justify-center text-left" dir="ltr"><span className="text-xs font-bold text-[#0791b1] uppercase">Interactive preview</span><h3 className="text-3xl font-extrabold mt-2">{product.title}</h3><p className="text-sm text-gray-600 leading-7 mt-4">Premium comfort, flexible support and a lightweight feel designed for every step.</p><strong className="text-2xl text-[#075d72] mt-5" dir="rtl">{money(product.price)} <small className="text-xs">تومان</small></strong><button onClick={() => { onAdd({ ...product, color: product.colors[product.colorIndex], size: 42 }); onClose(); }} className="bg-[#0791b1] text-white rounded-full py-3 mt-6 flex items-center justify-center gap-2 font-bold"><FaShoppingCart /> Add to cart</button></div>
+                <div className="p-8 flex flex-col justify-center text-left" dir="ltr"><span className="text-xs font-bold text-[#0791b1] uppercase">Interactive preview</span><h3 className="text-3xl font-extrabold mt-2">{product.title}</h3><p className="text-sm text-gray-600 leading-7 mt-4">Premium comfort, flexible support and a lightweight feel designed for every step.</p><strong className="text-2xl text-[#075d72] mt-5">{money(product.price)} <small className="text-xs">Toman</small></strong><button onClick={() => { onAdd({ ...product, color: product.colors[product.colorIndex], size: 42 }); onClose(); }} className="bg-[#0791b1] text-white rounded-full py-3 mt-6 flex items-center justify-center gap-2 font-bold"><FaShoppingCart /> Add to cart</button></div>
             </div>
         </div>
     );

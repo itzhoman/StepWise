@@ -31,7 +31,7 @@ const Experience = () => {
         <div className="order-2 lg:order-1 text-center lg:text-left" dir="ltr">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-md px-4 py-2 text-xs font-bold uppercase tracking-[.2em]"><FiZap className="text-yellow-300" /> StepWise Motion Lab</div>
           <h2 className="text-5xl md:text-7xl lg:text-[88px] leading-[.95] font-black mt-7 tracking-tight">SEE EVERY<br/><span className="text-[#cbe2e7]">ANGLE.</span></h2>
-          <p className="max-w-md text-white/75 leading-8 mt-7 mx-auto lg:mx-0">یک محصول، هشت زاویه‌ی واقعی. کفش را بکش، جزئیات طراحی را ببین و قبل از خرید انتخاب مطمئن‌تری داشته باش.</p>
+          <p className="max-w-md text-white/75 leading-8 mt-7 mx-auto lg:mx-0">One shoe, eight real angles. Drag to inspect every design detail and choose with confidence before you buy.</p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-8">
             <button onClick={() => setAutoSpin((value) => !value)} className="bg-white text-[#075d72] h-12 px-6 rounded-full font-bold flex items-center gap-3 hover:scale-105 duration-300"><FiRotateCw className={autoSpin ? "animate-spin" : ""} />{autoSpin ? "Pause rotation" : "Auto rotate"}</button>
             <a href="#shop" className="border border-white/40 h-12 px-6 rounded-full font-bold flex items-center gap-3 hover:bg-white/10 duration-300">Explore shoes <FiArrowRight /></a>
@@ -44,10 +44,10 @@ const Experience = () => {
           <div className="absolute w-[68%] aspect-square rounded-full border border-white/20" />
           <div className="absolute w-[80%] h-[36%] rounded-[50%] border border-white/30 rotate-[-12deg]" />
           <span className="absolute text-[12rem] md:text-[18rem] font-black text-white/[.08]">360</span>
-          <img src={frames[frame]} alt={`نمای ${frame + 1} کفش Aero Motion`} className="relative z-10 w-[115%] max-w-[850px] object-contain drop-shadow-[0_38px_30px_rgba(8,41,53,.45)] select-none duration-150" draggable="false" />
-          <div className="absolute bottom-0 md:bottom-8 flex items-center gap-3 bg-[#173a4a]/75 backdrop-blur-md px-5 py-3 rounded-full text-xs font-bold"><FiRotateCw /> برای چرخاندن کفش، آن را بکشید <span className="w-8 h-8 rounded-full bg-white text-[#0791b1] grid place-items-center">{frame + 1}</span></div>
-          <div className="absolute top-[22%] right-0 md:right-[7%] bg-white/10 backdrop-blur-lg border border-white/20 px-4 py-3 rounded-xl"><b className="block text-sm">AeroMesh™</b><small className="text-white/60">رویه‌ی تنفس‌پذیر</small></div>
-          <div className="absolute bottom-[22%] left-0 md:left-[5%] bg-white/10 backdrop-blur-lg border border-white/20 px-4 py-3 rounded-xl"><b className="block text-sm">CloudCore</b><small className="text-white/60">فوم فوق سبک</small></div>
+          <img src={frames[frame]} alt={`Angle ${frame + 1} of the Aero Motion shoe`} className="relative z-10 w-[115%] max-w-[850px] object-contain drop-shadow-[0_38px_30px_rgba(8,41,53,.45)] select-none duration-150" draggable="false" />
+          <div className="absolute bottom-0 md:bottom-8 flex items-center gap-3 bg-[#173a4a]/75 backdrop-blur-md px-5 py-3 rounded-full text-xs font-bold"><FiRotateCw /> Drag the shoe to rotate <span className="w-8 h-8 rounded-full bg-white text-[#0791b1] grid place-items-center">{frame + 1}</span></div>
+          <div className="absolute top-[22%] right-0 md:right-[7%] bg-white/10 backdrop-blur-lg border border-white/20 px-4 py-3 rounded-xl"><b className="block text-sm">AeroMesh™</b><small className="text-white/60">Breathable upper</small></div>
+          <div className="absolute bottom-[22%] left-0 md:left-[5%] bg-white/10 backdrop-blur-lg border border-white/20 px-4 py-3 rounded-xl"><b className="block text-sm">CloudCore</b><small className="text-white/60">Ultra-light foam</small></div>
         </div>
       </div>
     </section>
